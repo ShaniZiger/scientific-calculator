@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, filedialog
 import math
 import matplotlib.pyplot as plt
 import numpy as np
@@ -65,6 +65,29 @@ def show_history():
         for calc in history:
             tk.Label(history_window, text=calc, font=("Arial", 12), bg="#f7f7f7").pack()
 
+# Save history to a file
+def save_history():
+    if not history:
+        messagebox.showinfo("Save History", "No history to save.")
+        return
+
+    file_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")])
+    if file_path:
+        with open(file_path, "w") as file:
+            for calc in history:
+                file.write(calc + "\n")
+        messagebox.showinfo("Save History", f"History saved to {file_path}.")
+
+# Clear history
+def clear_history():
+    global history
+    if not history:
+        messagebox.showinfo("Clear History", "No history to clear.")
+        return
+
+    history = []  # Clear the history list
+    messagebox.showinfo("History Cleared", "All calculations have been cleared!")
+
 # AI prediction
 def predict_operation():
     if ai_suggestions:
@@ -104,70 +127,74 @@ def plot_graph():
 
 # Create the main window
 root = tk.Tk()
-root.title("Advanced Calculator with Buttons")
-root.geometry("500x700")
-root.configure(bg="#f0f8ff")
+root.title("Advanced Scientific Calculator")
+root.geometry("600x800")
+root.configure(bg="#ffe6f9")  # Pink background
 
 # Header
-header = tk.Label(root, text="Scientific Calculator", font=("Arial", 20, "bold"), bg="#f0f8ff", fg="#2f4f4f")
+header = tk.Label(root, text="Scientific Calculator", font=("Arial", 20, "bold"), bg="#ffe6f9", fg="#ff1493")
 header.grid(row=0, column=0, columnspan=4, pady=10)
 
 # Input fields
-tk.Label(root, text="Enter first number:", font=("Arial", 12), bg="#f0f8ff").grid(row=1, column=0, columnspan=2, padx=10, pady=5, sticky="w")
+tk.Label(root, text="Enter first number:", font=("Arial", 12), bg="#ffe6f9", fg="#d6336c").grid(row=1, column=0, columnspan=2, padx=10, pady=5, sticky="w")
 entry_num1 = tk.Entry(root, font=("Arial", 12), width=15)
 entry_num1.grid(row=1, column=2, columnspan=2, padx=10, pady=5)
 
-tk.Label(root, text="Enter second number (if applicable):", font=("Arial", 12), bg="#f0f8ff").grid(row=2, column=0, columnspan=2, padx=10, pady=5, sticky="w")
+tk.Label(root, text="Enter second number (if applicable):", font=("Arial", 12), bg="#ffe6f9", fg="#d6336c").grid(row=2, column=0, columnspan=2, padx=10, pady=5, sticky="w")
 entry_num2 = tk.Entry(root, font=("Arial", 12), width=15)
 entry_num2.grid(row=2, column=2, columnspan=2, padx=10, pady=5)
 
 # Buttons for operations
-button_add = tk.Button(root, text="+", command=lambda: calculate("Add"), font=("Arial", 12), bg="#4caf50", fg="white", width=5)
+button_add = tk.Button(root, text="+", command=lambda: calculate("Add"), font=("Arial", 12), bg="#ff66b2", fg="white", width=10)
 button_add.grid(row=3, column=0, padx=5, pady=5)
 
-button_subtract = tk.Button(root, text="-", command=lambda: calculate("Subtract"), font=("Arial", 12), bg="#4caf50", fg="white", width=5)
+button_subtract = tk.Button(root, text="-", command=lambda: calculate("Subtract"), font=("Arial", 12), bg="#ff66b2", fg="white", width=10)
 button_subtract.grid(row=3, column=1, padx=5, pady=5)
 
-button_multiply = tk.Button(root, text="x", command=lambda: calculate("Multiply"), font=("Arial", 12), bg="#4caf50", fg="white", width=5)
+button_multiply = tk.Button(root, text="x", command=lambda: calculate("Multiply"), font=("Arial", 12), bg="#ff66b2", fg="white", width=10)
 button_multiply.grid(row=3, column=2, padx=5, pady=5)
 
-button_divide = tk.Button(root, text="÷", command=lambda: calculate("Divide"), font=("Arial", 12), bg="#4caf50", fg="white", width=5)
+button_divide = tk.Button(root, text="÷", command=lambda: calculate("Divide"), font=("Arial", 12), bg="#ff66b2", fg="white", width=10)
 button_divide.grid(row=3, column=3, padx=5, pady=5)
 
-button_square = tk.Button(root, text="x²", command=lambda: calculate("Square"), font=("Arial", 12), bg="#4caf50", fg="white", width=5)
+button_square = tk.Button(root, text="x²", command=lambda: calculate("Square"), font=("Arial", 12), bg="#ff66b2", fg="white", width=10)
 button_square.grid(row=4, column=0, padx=5, pady=5)
 
-button_sqrt = tk.Button(root, text="√x", command=lambda: calculate("Square Root"), font=("Arial", 12), bg="#4caf50", fg="white", width=5)
+button_sqrt = tk.Button(root, text="√x", command=lambda: calculate("Square Root"), font=("Arial", 12), bg="#ff66b2", fg="white", width=10)
 button_sqrt.grid(row=4, column=1, padx=5, pady=5)
 
-button_factorial = tk.Button(root, text="n!", command=lambda: calculate("Factorial"), font=("Arial", 12), bg="#4caf50", fg="white", width=5)
+button_factorial = tk.Button(root, text="n!", command=lambda: calculate("Factorial"), font=("Arial", 12), bg="#ff66b2", fg="white", width=10)
 button_factorial.grid(row=4, column=2, padx=5, pady=5)
 
-button_history = tk.Button(root, text="History", command=show_history, font=("Arial", 12), bg="#008cba", fg="white", width=10)
-button_history.grid(row=5, column=0, columnspan=2, pady=10)
+# History buttons
+button_history = tk.Button(root, text="Show History", command=show_history, font=("Arial", 12), bg="#ff85c0", fg="white", width=20)
+button_history.grid(row=5, column=0, columnspan=2, padx=5, pady=10)
 
-button_ai = tk.Button(root, text="AI Suggestion", command=predict_operation, font=("Arial", 12), bg="#ff9800", fg="white", width=10)
-button_ai.grid(row=5, column=2, columnspan=2, pady=10)
+save_button = tk.Button(root, text="Save History", command=save_history, font=("Arial", 12), bg="#ff85c0", fg="white", width=20)
+save_button.grid(row=5, column=2, columnspan=2, padx=5, pady=10)
+
+clear_button = tk.Button(root, text="Clear History", command=clear_history, font=("Arial", 12), bg="#ff1744", fg="white", width=20)
+clear_button.grid(row=6, column=0, columnspan=2, padx=5, pady=10)
+
+button_ai = tk.Button(root, text="AI Suggestion", command=predict_operation, font=("Arial", 12), bg="#ff4081", fg="white", width=20)
+button_ai.grid(row=6, column=2, columnspan=2, padx=5, pady=10)
 
 # Equation solving
-tk.Label(root, text="Enter equation (e.g., x^2 + 2*x + 1 = 0):", font=("Arial", 12), bg="#f0f8ff").grid(row=6, column=0, columnspan=4, padx=10, pady=5, sticky="w")
+tk.Label(root, text="Enter equation (e.g., x^2 + 2*x + 1 = 0):", font=("Arial", 12), bg="#ffe6f9", fg="#d6336c").grid(row=7, column=0, columnspan=4, padx=10, pady=5, sticky="w")
 equation_entry = tk.Entry(root, font=("Arial", 12), width=40)
-equation_entry.grid(row=7, column=0, columnspan=4, padx=10, pady=5)
-solve_button = tk.Button(root, text="Solve Equation", command=solve_equation, font=("Arial", 12), bg="#ff5722", fg="white", width=15)
-solve_button.grid(row=8, column=0, columnspan=4, pady=10)
-
-equation_result_label = tk.Label(root, text="Solution: ", font=("Arial", 12), bg="#f0f8ff", fg="#2f4f4f")
-equation_result_label.grid(row=9, column=0, columnspan=4, pady=5)
+equation_entry.grid(row=8, column=0, columnspan=4, padx=10, pady=5)
+solve_button = tk.Button(root, text="Solve Equation", command=solve_equation, font=("Arial", 12), bg="#ff69b4", fg="white", width=20)
+solve_button.grid(row=9, column=0, columnspan=4, padx=10, pady=10)
 
 # Graph plotting
-tk.Label(root, text="Enter function for graph (e.g., x^2):", font=("Arial", 12), bg="#f0f8ff").grid(row=10, column=0, columnspan=4, padx=10, pady=5, sticky="w")
+tk.Label(root, text="Enter function for graph (e.g., x^2):", font=("Arial", 12), bg="#ffe6f9", fg="#d6336c").grid(row=10, column=0, columnspan=4, padx=10, pady=5, sticky="w")
 graph_entry = tk.Entry(root, font=("Arial", 12), width=40)
 graph_entry.grid(row=11, column=0, columnspan=4, padx=10, pady=5)
-plot_button = tk.Button(root, text="Plot Graph", command=plot_graph, font=("Arial", 12), bg="#ff69b4", fg="white", width=15)
-plot_button.grid(row=12, column=0, columnspan=4, pady=10)
+plot_button = tk.Button(root, text="Plot Graph", command=plot_graph, font=("Arial", 12), bg="#ff69b4", fg="white", width=20)
+plot_button.grid(row=12, column=0, columnspan=4, padx=10, pady=10)
 
 # Result label
-result_label = tk.Label(root, text="Result: ", font=("Arial", 14, "bold"), bg="#f0f8ff", fg="#2f4f4f")
+result_label = tk.Label(root, text="Result: ", font=("Arial", 14, "bold"), bg="#ffe6f9", fg="#ff1493")
 result_label.grid(row=13, column=0, columnspan=4, pady=10)
 
 # Run the GUI
