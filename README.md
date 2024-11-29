@@ -18,7 +18,7 @@ This is a Python-based **scientific calculator** with a beautiful pink-themed gr
 ## Screenshots
 
 ### Calculator Interface
-![Calculator Interface](images/calculator_interface.png)
+![calculator interface](https://github.com/user-attachments/assets/31a2d0f1-38c0-4573-913e-3214fb9ede7b)
 
 ### Graph Plotting
 ![graph plot](https://github.com/user-attachments/assets/a3a7b0b8-88f7-4f91-9a1d-c7360df5d244)
