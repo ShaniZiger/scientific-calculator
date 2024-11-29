@@ -21,7 +21,8 @@ This is a Python-based **scientific calculator** with a beautiful pink-themed gr
 ![Calculator Interface](images/calculator_interface.png)
 
 ### Graph Plotting
-![Graph Plotting](images/graph_plot.png)
+![graph plot](https://github.com/user-attachments/assets/a3a7b0b8-88f7-4f91-9a1d-c7360df5d244)
+
 
 
 ## Technologies Used
