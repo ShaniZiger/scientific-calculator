@@ -42,5 +42,5 @@ This project demonstrates:
 - Creating a visually appealing application with a pink theme.
 
 ## Credits
-Developed by [Shani Hiziger].
+Developed by Shani Hiziger.
 Inspired by the idea of making scientific tools accessible through a fun and user-friendly GUI
